@@ -1,10 +1,11 @@
 package edu.eci.dosw.imageservice.service;
 
-import edu.eci.dosw.imageservice.exception.ImagenNotFoundException;
 import edu.eci.dosw.imageservice.model.document.ImagenDocument;
 import edu.eci.dosw.imageservice.repository.ImagenRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,28 +18,32 @@ public class ImagenService {
         this.imagenRepository = imagenRepository;
     }
 
-    public ImagenDocument guardarImagen(ImagenDocument imagen) {
-        imagen.setFechaCarga(LocalDateTime.now());
+    public ImagenDocument guardar(MultipartFile archivo, String referenciaExterna) throws IOException {
+        ImagenDocument imagen = new ImagenDocument(
+                archivo.getOriginalFilename(),
+                archivo.getContentType(),
+                archivo.getSize(),
+                archivo.getBytes(),
+                LocalDateTime.now(),
+                referenciaExterna
+        );
         return imagenRepository.save(imagen);
     }
 
-    public ImagenDocument obtenerPorId(String id) {
+    public ImagenDocument buscarPorId(String id) {
         return imagenRepository.findById(id)
-                .orElseThrow(() -> new ImagenNotFoundException("No se encontró la imagen con id: " + id));
+                .orElseThrow(() -> new RuntimeException("Imagen no encontrada"));
     }
 
-    public List<ImagenDocument> listarTodas() {
+    public List<ImagenDocument> listar() {
         return imagenRepository.findAll();
     }
 
-    public List<ImagenDocument> listarPorTorneo(Long torneoId) {
-        return imagenRepository.findByTorneoId(torneoId);
+    public List<ImagenDocument> listarPorReferencia(String referenciaExterna) {
+        return imagenRepository.findByReferenciaExterna(referenciaExterna);
     }
 
-    public void eliminarPorId(String id) {
-        if (!imagenRepository.existsById(id)) {
-            throw new ImagenNotFoundException("No se encontró la imagen con id: " + id);
-        }
+    public void eliminar(String id) {
         imagenRepository.deleteById(id);
     }
 }

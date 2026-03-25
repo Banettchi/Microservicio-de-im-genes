@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ImagenRepository extends MongoRepository<ImagenDocument, String> {
 
-    List<ImagenDocument> findByTorneoId(Long torneoId);
+    List<ImagenDocument> findByReferenciaExterna(String referenciaExterna);
 }
