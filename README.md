@@ -30,3 +30,9 @@ PRUEBAS MICROSERVICIO
 5. Listar imágenes por referencia externa:
     ![img_8.png](img_8.png)
     ![img_9.png](img_9.png)
+
+
+
+Evidencia de persistencia en MongoDB.
+Se verifica el almacenamiento exitoso de la imagen en la colección imagenes, consultando directamente desde mongosh. En la salida se observan los campos del documento, como nombre del archivo, tipo de contenido, tamaño, referencia externa y los datos binarios asociados, confirmando que el microservicio guardó correctamente la imagen en la base de datos NoSQL.
+![img_10.png](img_10.png)
