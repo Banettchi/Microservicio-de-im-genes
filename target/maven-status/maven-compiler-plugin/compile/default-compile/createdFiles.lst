@@ -1,1 +1,6 @@
+edu\eci\dosw\imageservice\service\ImagenService.class
 edu\eci\dosw\imageservice\ImageServiceApplication.class
+edu\eci\dosw\imageservice\controller\ImagenController.class
+edu\eci\dosw\imageservice\exception\ImagenNotFoundException.class
+edu\eci\dosw\imageservice\repository\ImagenRepository.class
+edu\eci\dosw\imageservice\model\document\ImagenDocument.class
